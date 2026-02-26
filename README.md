@@ -222,95 +222,206 @@ Navigate to your project directory and run:
 ```bash
 python3 -m venv venv
 ```
+This command creates a folder named `venv` that contains an isolated Python runtime and a separate package installation space for the project.
 
-This command creates a folder named venv that contains an isolated Python runtime.
-Activate the Virtual Environment
-On macOS/Linux:
+#### Activate the Virtual Environment
+
+- **macOS / Linux:**
+```bash
 source venv/bin/activate
-On Windows:
+```
+- **windowns**
+- ```bash
 venv\Scripts\activate
-Once activated, the terminal prompt will show the virtual environment name.
-Why use a virtual environment?
-• Prevents dependency conflicts
-• Improves reproducibility
-• Follows professional development practices
-5.4 Step 3: Upgrade pip (Recommended)
-Upgrade the Python package manager to avoid installation issues:
+```
+Once activated, the terminal prompt will display the virtual environment name, indicating that the isolated environment is active.
+
+#### Why use a virtual environment?
+
+- Prevents dependency conflicts between projects  
+- Improves reproducibility across different systems  
+- Follows professional Python development best practices  
+
+---
+
+### 5.4 Step 3: Upgrade `pip` (Recommended)
+
+Upgrading the Python package manager helps avoid installation issues and ensures compatibility with the latest packages.
+
+```bash
 pip install --upgrade pip
+```
+### 5.5 Step 4: Install Required Python Libraries
 
-5.5 Step 4: Install Required Python Libraries
 Install all required libraries inside the activated virtual environment:
+
+```bash
 pip install selenium beautifulsoup4 pandas lxml openpyxl
-Library Purpose
-• selenium – Automates browser actions and executes JavaScript
-• beautifulsoup4 – Parses HTML content
-• pandas – Cleans and transforms tabular data
-• lxml – High-performance HTML/XML parser
-• openpyxl – Creates Excel (.xlsx) files
-5.6 Step 5: Install ChromeDriver
+#### Library Overview
+
+- **selenium** – Automates browser actions and executes JavaScript  
+- **beautifulsoup4** – Parses and navigates HTML content  
+- **pandas** – Cleans, transforms, and analyzes tabular data  
+- **lxml** – High-performance HTML and XML parser  
+- **openpyxl** – Creates and writes Excel (`.xlsx`) files  
+
+---
+
+### 5.6 Step 5: Install ChromeDriver
+
 Selenium requires a browser driver to control Google Chrome.
-Check Chrome Version
-Open Chrome and go to:
+
+#### Check Chrome Version
+
+Open Google Chrome and navigate to:
+
+```text
 chrome://settings/help
-Note the installed version number.
-Download ChromeDriver
-Download the matching ChromeDriver version from: https://chromedriver.chromium.org/downloads
+```
+Note the installed Chrome version number.
+
+#### Download ChromeDriver
+
+Download the ChromeDriver version that matches your Chrome browser from:  
+https://chromedriver.chromium.org/downloads
+
 After downloading:
-• Extract the file
-• Place it in a directory included in your system PATH, or inside the project folder
-Why ChromeDriver is required?
-ChromeDriver acts as a bridge between Selenium scripts and the Chrome browser.
-5.7 Step 6: Verify Installation
-Run the following command to confirm successful setup:
-python -c "import selenium, bs4, pandas; print('Environment ready')"
-If no errors appear, the environment setup is complete.
 
-6. Implementation
+- Extract the ChromeDriver executable  
+- Place it in a directory included in your system `PATH`, or inside the project folder  
 
-Fig  6.1 code showing 200 status code and only 25 movies have saved to csv file using BeautifulSoup
- 
-Fig 6.2 csv file showing only 25 saved values
- 
-Fig 6.3 Using Selenium instead of BeautifulSoup for extracting entire 250 values 
-Fig 6.4 csv file using all 250 dataset extracted by using selenium
- 
-Fig 6.5 Code showing csv file converting into excel file
+#### Why ChromeDriver is required?
 
- 
-Fig 6.6 Data converted into excel sheet
- 
-Fig 6.7 Connected Excel sheet in Tableau
- 
-Fig 6.8 Visualizing bargraph
- 
-Fig 6.9 Visualizing poster images and chart
- 
-Fig 6.10 keeping rank filter and range till 5 to clearly show the movie poster
- 
-Fig 6.11 Creating a Dashboard and displaying both visualizations 
-Fig 6.12 Showing Interaction between two charts
+ChromeDriver acts as a bridge between Selenium scripts and the Chrome browser, enabling programmatic browser control and automation.
 
-7. Results & Insights
-The final interactive dashboard provides clear insights into the IMDb Top 250 Movies dataset. The analysis reveals that classic films dominate the highest ratings, with a significant concentration of top-ranked movies released between the 1950s and early 2000s. Movies such as The Shawshank Redemption and The Godfather consistently appear at the top, reflecting long-term audience appreciation.
+
+## 6. Implementation
+
+This section documents the step-by-step implementation of the project, highlighting the transition from static scraping to dynamic browser automation and the final visualization workflow. Each figure corresponds to a key stage in the data pipeline.
+
+---
+
+### Fig 6.1: Initial Scraping Using BeautifulSoup
+
+This figure shows the initial Python code execution where an HTTP 200 response is received, but only **25 movie records** are saved to the CSV file due to IMDb’s lazy loading behavior when using static BeautifulSoup scraping.
+<img width="431" height="263" alt="image" src="https://github.com/user-attachments/assets/fa1a5d3c-b153-41e7-8100-78506b5cfbfe" />
+
+---
+
+### Fig 6.2: CSV Output with Partial Data (25 Movies)
+
+This figure displays the generated CSV file containing only 25 movie records, confirming that traditional request-based scraping failed to retrieve the complete IMDb Top 250 dataset.
+<img width="428" height="260" alt="image" src="https://github.com/user-attachments/assets/78a26176-079d-43f5-ba6b-aedc28d4d059" />
+
+---
+
+### Fig 6.3: Switching to Selenium for Full Data Extraction
+
+This figure shows the updated scraping implementation using **Selenium WebDriver**, which automates a real browser session to execute JavaScript and handle lazy loading, enabling access to the complete dataset.
+<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/00841306-0957-43c1-af26-1c2bc29951ff" />
+
+---
+
+### Fig 6.4: CSV Output with Complete Dataset (250 Movies)
+
+This figure displays the CSV file generated using Selenium, confirming that **all 250 movie records** were successfully extracted and saved.
+<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/f630e3f6-b3b9-486a-adeb-f9ac48875a35" />
+
+---
+
+### Fig 6.5: Converting CSV File to Excel Format
+
+This figure shows the Python code used to convert the cleaned CSV file into an Excel (`.xlsx`) format to support downstream business intelligence tools.
+<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/907ece74-940a-44b4-a9d2-f449ad88a5cc" />
+
+---
+
+### Fig 6.6: Excel File Containing IMDb Top 250 Dataset
+
+This figure shows the converted Excel file containing the full IMDb Top 250 dataset, ready for visualization and analysis.
+<img width="432" height="262" alt="image" src="https://github.com/user-attachments/assets/16d717f9-95f7-4d96-9e24-353afe867ab1" />
+
+---
+
+### Fig 6.7: Connecting Excel Dataset to Tableau
+
+This figure shows the Excel file successfully connected as a data source in **Tableau Public**, confirming that the dataset is ready for visualization.
+<img width="433" height="264" alt="image" src="https://github.com/user-attachments/assets/f50d2720-4bed-429b-820b-b95953b097d7" />
+
+---
+
+### Fig 6.8: Bar Chart Visualization in Tableau
+
+This figure shows a bar graph visualizing movie rankings and IMDb ratings, enabling comparison of top-rated movies.
+<img width="431" height="264" alt="image" src="https://github.com/user-attachments/assets/ea07a31e-7d74-46ae-8fed-41e9ca687a09" />
+
+---
+
+### Fig 6.9: Poster Image Visualization with Ratings
+
+This figure shows the poster-based visualization combined with chart data, improving user engagement through visual exploration of movies.
+<img width="433" height="322" alt="image" src="https://github.com/user-attachments/assets/4dba9edd-fd3b-45ab-94fe-f869af4cb1a9" />
+
+---
+
+### Fig 6.10: Applying Rank Filter for Poster Clarity
+
+This figure shows the application of a rank range filter (1–5) to clearly display movie posters without visual clutter.
+<img width="433" height="264" alt="image" src="https://github.com/user-attachments/assets/3b978260-d634-4b14-a90e-5ff225293e70" />
+
+---
+
+### Fig 6.11: Dashboard Creation with Multiple Visualizations
+
+This figure shows the final Tableau dashboard combining both the bar chart and poster visualization into a single analytical view.
+<img width="432" height="264" alt="image" src="https://github.com/user-attachments/assets/06995721-59d1-493d-8690-50f73a4a09f7" />
+
+---
+
+### Fig 6.12: Interactive Dashboard Behavior
+
+This figure demonstrates the interaction between charts, where selecting a movie in one visualization dynamically filters and updates the other.
+![Uploading image.png…]()
+
+---
+
+## 7. Results & Insights
+
+The final interactive dashboard provides clear insights into the IMDb Top 250 Movies dataset. The analysis reveals that classic films dominate the highest ratings, with a significant concentration of top-ranked movies released between the 1950s and early 2000s. Movies such as **The Shawshank Redemption** and **The Godfather** consistently appear at the top, reflecting long-term audience appreciation.
+
 The visualization also highlights rating distribution patterns across release years, showing how older critically acclaimed films maintain high ratings despite newer releases. Poster-based views enhance user engagement by allowing intuitive exploration of movies through visual recognition. Interactive filters enable users to dynamically analyze rankings, ratings, and trends without requiring technical knowledge.
+
 Overall, the dashboard successfully transforms raw scraped data into meaningful, easily interpretable insights.
 
-8.  GitHub Deployment
-All project assets, including Python scripts, datasets, and documentation, are version-controlled using GitHub. The repository follows a structured layout, separating source code, data outputs, and documentation to improve readability and maintainability.
+---
+
+## 8. GitHub Deployment
+
+All project assets, including Python scripts, datasets, and documentation, are version-controlled using **GitHub**. The repository follows a structured layout, separating source code, data outputs, and documentation to improve readability and maintainability.
+
 The GitHub repository includes:
-•	Selenium-based scraping scripts
-•	Cleaned CSV and Excel datasets
-•	Project documentation
-•	Architecture and workflow references
+- Selenium-based scraping scripts  
+- Cleaned CSV and Excel datasets  
+- Project documentation  
+- Architecture and workflow references  
+
 This deployment ensures transparency, reproducibility, and ease of collaboration, making the project suitable for code review, portfolio presentation, and future enhancements.
 
-9. Conclusion
+---
+
+## 9. Conclusion
+
 This project demonstrates a complete end-to-end data engineering workflow, from scraping dynamically rendered web content to delivering an interactive business intelligence dashboard. By handling JavaScript execution, lazy loading, and data validation, the solution mirrors real-world production scenarios.
+
 The project showcases strong technical skills in browser automation, HTML parsing, data transformation, and visualization. It also highlights the ability to design scalable pipelines, handle unstructured data sources, and communicate insights effectively through professional dashboards.
 
-10. Future Enhancements
-•	Automate periodic data refresh using schedulers such as cron or cloud-based workflows
-•	Enrich the dataset by extracting additional attributes such as genres, directors, and cast
-•	Deploy the scraping pipeline and dashboard on cloud platforms for scalability
-•	Create a Power BI version of the dashboard for cross-platform comparison
+---
 
+## 10. Future Enhancements
+
+- Automate periodic data refresh using schedulers such as cron or cloud-based workflows  
+- Enrich the dataset by extracting additional attributes such as genres, directors, and cast  
+- Deploy the scraping pipeline and dashboard on cloud platforms for scalability  
+- Create a Power BI version of the dashboard for cross-platform comparison  
+
+---
