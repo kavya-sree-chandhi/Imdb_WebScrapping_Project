@@ -231,7 +231,7 @@ This command creates a folder named `venv` that contains an isolated Python runt
 source venv/bin/activate
 ```
 - **windowns**
-- ```bash
+```bash
 venv\Scripts\activate
 ```
 Once activated, the terminal prompt will display the virtual environment name, indicating that the isolated environment is active.
@@ -251,12 +251,16 @@ Upgrading the Python package manager helps avoid installation issues and ensures
 ```bash
 pip install --upgrade pip
 ```
+---
+
 ### 5.5 Step 4: Install Required Python Libraries
 
 Install all required libraries inside the activated virtual environment:
 
 ```bash
 pip install selenium beautifulsoup4 pandas lxml openpyxl
+```
+
 #### Library Overview
 
 - **selenium** – Automates browser actions and executes JavaScript  
@@ -278,6 +282,7 @@ Open Google Chrome and navigate to:
 ```text
 chrome://settings/help
 ```
+
 Note the installed Chrome version number.
 
 #### Download ChromeDriver
