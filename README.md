@@ -1,2 +1,235 @@
-# Imdb_WebScrapping_Project
-End-to-end data engineering project that scrapes IMDb Top 250 movies from a JavaScript-rendered website using Selenium, cleans and transforms the data with Python, and builds an interactive Tableau dashboard for analysis and visualization.
+IMDb Top 250 Web Scraping & Interactive Dashboard Project
+
+Author: Kavya Sree Chandhi  
+Project Type: End-to-End Data Engineering Project using Python Programming Langugae
+Focus Areas: Web Scraping (Dynamic Content), Data Processing, Business Intelligence Visualization  
+Tools & Technologies: Python, Selenium, BeautifulSoup, Pandas, Tableau Public  
+Platform: macOS (ARM64)
+
+Index
+1.	Introduction
+2.	Project Motivation & Problem Statement
+3.	Project Objectives
+4.	System Architecture
+5.	Environment Setup & Installation
+6.	Implementation
+7.	Results & Insights
+8.	GitHub Deployment
+9.	Conclusion
+10.	Future Enhancements
+
+1. Introduction
+In today’s data-driven world, valuable information is often embedded within modern web applications rather than exposed through structured APIs. Many popular websites dynamically load data using JavaScript, making traditional data extraction techniques insufficient. This project addresses that real-world challenge by designing and implementing an end-to-end data pipeline that automates the extraction, processing, and visualization of web-based data.
+The focus of this project is the IMDb Top 250 Movies dataset, a widely recognized ranking of films based on user ratings. IMDb presents this data through a JavaScript-rendered, lazy-loaded web interface, which prevents complete data retrieval using basic HTTP request-based scraping methods. As a result, advanced browser automation techniques are required to accurately extract the full dataset.
+This project demonstrates how to overcome such challenges by leveraging Selenium WebDriver to simulate real user behavior, allowing JavaScript execution and dynamic content loading. Once the data is fully rendered in the browser, BeautifulSoup is used to parse and extract structured information from the HTML DOM. The extracted raw data is then cleaned and transformed into an analysis-ready format using Python, ensuring consistency, correctness, and usability.
+Beyond data extraction, the project emphasizes data preparation and analytics, converting the processed data into CSV and Excel formats suitable for downstream business intelligence tools. The cleaned dataset is then visualized using Tableau Public, where multiple analytical views are combined into an interactive dashboard. The dashboard enables users to explore top-ranked movies, analyze rating trends, and visually engage with movie poster images through interactive filtering and tooltips.
+Overall, this project showcases a real-world data engineering workflow, covering challenges such as dynamic web scraping, data transformation, aggregation handling, and dashboard interactivity. It reflects industry-relevant practices and demonstrates the ability to design scalable data pipelines, work with unstructured web data, and communicate insights effectively through professional visualizations.
+
+2. Project Motivation & Problem Statement
+Modern web applications increasingly rely on client-side rendering techniques, where content is dynamically loaded in the browser using JavaScript rather than being delivered as complete HTML from the server. While this approach improves user experience, it introduces significant challenges for data extraction and automation. Traditional web scraping methods based on HTTP requests and static HTML parsing are often insufficient when dealing with such dynamically rendered content.
+The IMDb Top 250 Movies page is a clear example of this challenge. Although the page appears as a single list to users, the underlying data is loaded incrementally through lazy loading mechanisms as the user scrolls. As a result, an initial HTTP request retrieves only a partial subset of the data, typically the first few movie entries. The remaining records are injected into the Document Object Model (DOM) at runtime through JavaScript execution, making them invisible to request-based scrapers.
+The primary motivation for this project was to design a reliable and scalable scraping solution capable of extracting the complete Top 250 dataset despite these technical limitations. The problem required not only identifying the presence of lazy loading but also implementing a method to simulate real user behavior in order to trigger full data loading. Additionally, the extracted data contained mixed formats (such as ratings combined with vote counts), necessitating careful data cleaning and transformation before analysis.
+Therefore, the core problem addressed by this project can be summarized as follows:
+•	Traditional scraping approaches fail to retrieve complete data from JavaScript-rendered pages
+•	IMDb’s lazy loading mechanism restricts access to all 250 movie records in a single request
+•	Extracted raw data requires structured cleaning and transformation for analytical use
+This project was motivated by the need to solve these challenges in a production-like scenario, applying tools and techniques commonly used in real-world data engineering workflows. The final solution demonstrates how browser automation, structured parsing, and analytical processing can be combined to reliably extract and visualize complex web-based datasets.
+
+3. Project Objectives
+The key objectives of the project are outlined below:
+3.1 Reliable Data Extraction
+To develop a dependable web scraping solution capable of extracting the complete IMDb Top 250 Movies dataset without data loss. This includes accurately capturing all movie records despite the presence of JavaScript-based content rendering and incremental data loading.
+3.2 Handling Lazy Loading and Dynamic Content
+To identify and effectively handle lazy loading mechanisms implemented on the IMDb website. This objective focuses on simulating real user interactions, such as scrolling behavior, to trigger full content loading and ensure that all movie entries are available for extraction.
+3.3 Data Cleaning and Transformation
+To clean and normalize raw scraped data, which often contains mixed formats and extraneous text. This includes separating numeric IMDb ratings from vote counts, standardizing data types, and ensuring consistency across all extracted fields to support accurate analysis.
+3.4 Storage in Analysis-Ready Formats
+To store the processed dataset in structured, widely supported formats such as CSV and Excel, making the data easily consumable by business intelligence tools, analytical workflows, and downstream applications.
+3.5 Interactive Data Visualization
+To design and build interactive dashboards that allow users to explore movie rankings, rating trends, and detailed attributes visually. This objective emphasizes clarity, usability, and meaningful storytelling through charts, filters, and image-based visual components.
+3.6 Comprehensive Documentation and Reproducibility
+To document the entire workflow in a clear and structured manner, including setup instructions, design decisions, challenges encountered, and solutions implemented. This ensures the project is reproducible, maintainable, and suitable for knowledge sharing, code reviews, and portfolio presentation.
+
+4. System Architecture
+ 
+The system architecture follows a layered, end-to-end data pipeline designed to reliably extract, process, and visualize data from a modern, JavaScript-driven website. Each component in the architecture has a clearly defined responsibility, ensuring separation of concerns, maintainability, and robustness.
+4.1 IMDb Website (Data Source Layer)
+The IMDb Top 250 page serves as the primary data source. This page dynamically loads movie data using JavaScript and lazy loading, meaning the full dataset is not immediately available in the initial HTML response.
+Key Characteristics:
+•	Client-side rendering
+•	Lazy-loaded movie elements
+•	Requires browser-level interaction to fully load content
+Because of this behavior, traditional request-based scraping methods are insufficient.
+4.2 Selenium (Browser Automation Layer)
+Selenium acts as the automation and rendering engine for the pipeline.
+Responsibilities:
+•	Launch a real browser session
+•	Navigate to the IMDb Top 250 page
+•	Execute scrolling actions to trigger lazy loading
+•	Ensure all movie elements are rendered in the DOM
+Why Selenium is required:
+•	Executes JavaScript just like a real user
+•	Handles dynamic content and lazy loading
+•	Provides access to the fully rendered HTML
+A validation checkpoint confirms that all 250 movies are loaded before proceeding.
+4.3 BeautifulSoup (HTML Parsing Layer)
+Once Selenium completes rendering, the fully loaded page source is passed to BeautifulSoup for parsing.
+Responsibilities:
+•	Parse the rendered HTML DOM
+•	Locate movie containers and metadata elements
+•	Extract structured data fields
+Extracted Attributes Include:
+•	Rank
+•	Movie title
+•	Release year
+•	IMDb rating
+•	Poster image URL
+This layer separates data extraction logic from browser automation, improving code clarity and maintainability.
+4.4 Pandas (Data Processing & Validation Layer)
+Pandas is used for data cleaning, transformation, and validation.
+Responsibilities:
+•	Convert raw scraped text into structured tabular format
+•	Clean and normalize fields (e.g., ratings, years)
+•	Validate record count to ensure exactly 250 movies are captured
+•	Handle missing or inconsistent values
+This layer ensures that only analysis-ready, high-quality data flows into storage and visualization.
+4.5 CSV / Excel (Storage Layer)
+Processed data is stored in two formats:
+•	CSV: Lightweight, portable intermediate storage
+•	Excel (.xlsx): Analysis-ready format compatible with BI tools
+Why this design:
+•	CSV enables easy debugging and portability
+•	Excel integrates seamlessly with Tableau and other visualization platforms
+This stage acts as the handoff point between data engineering and analytics.
+4.6 Tableau Dashboard (Visualization Layer)
+Tableau is used to convert processed data into interactive visual insights.
+Responsibilities:
+•	Load the Excel dataset
+•	Create visualizations such as:
+o	Top 10 movies by rating
+o	Poster-based views
+o	Rating comparisons and trends
+•	Build an interactive dashboard with filters and tooltips
+This layer transforms raw data into business-consumable insights.
+4.7 Architectural Design Principles
+The system architecture is built on the following principles:
+•	Separation of Concerns: Each layer has a single responsibility
+•	Validation First: Data completeness is verified before processing
+•	Fault Awareness: Retry logic handles lazy loading failures
+•	Scalability: Modular design allows future extensions
+•	Visualization Readiness: Output formats align with BI tools
+4.8 Summary
+This architecture demonstrates a production-aware approach to web scraping and analytics by combining browser automation, structured parsing, robust data validation, and interactive visualization into a single cohesive pipeline.
+
+5. Environment Setup & Installation
+This section explains how to set up the development environment required for the IMDb Top 250 web scraping project. A virtual environment is used to isolate dependencies and ensure consistent execution across systems.
+5.1 Prerequisites
+Before starting, ensure the following requirements are met:
+• Operating System: macOS / Windows / Linux
+• Python Version: Python 3.10 or higher
+• Internet connection
+• Google Chrome browser (required for Selenium)
+5.2 Step 1: Install Python 3.10+
+Python is the primary programming language used for web scraping, data processing, and automation in this project.
+Verify Python Installation
+Open Terminal (or Command Prompt) and run:
+python3 --version
+If Python is not installed or the version is lower than 3.10, download and install it from: https://www.python.org/downloads/
+Why Python 3.10+?:
+Newer Python versions provide better performance, security updates, and full compatibility with modern libraries such as Selenium and Pandas.
+5.3 Step 2: Create a Virtual Environment
+A virtual environment isolates project-specific dependencies from the global Python installation, preventing conflicts between projects.
+Create the Virtual Environment
+Navigate to your project directory and run:
+python3 -m venv venv
+This command creates a folder named venv that contains an isolated Python runtime.
+Activate the Virtual Environment
+On macOS/Linux:
+source venv/bin/activate
+On Windows:
+venv\Scripts\activate
+Once activated, the terminal prompt will show the virtual environment name.
+Why use a virtual environment?
+• Prevents dependency conflicts
+• Improves reproducibility
+• Follows professional development practices
+5.4 Step 3: Upgrade pip (Recommended)
+Upgrade the Python package manager to avoid installation issues:
+pip install --upgrade pip
+
+5.5 Step 4: Install Required Python Libraries
+Install all required libraries inside the activated virtual environment:
+pip install selenium beautifulsoup4 pandas lxml openpyxl
+Library Purpose
+• selenium – Automates browser actions and executes JavaScript
+• beautifulsoup4 – Parses HTML content
+• pandas – Cleans and transforms tabular data
+• lxml – High-performance HTML/XML parser
+• openpyxl – Creates Excel (.xlsx) files
+5.6 Step 5: Install ChromeDriver
+Selenium requires a browser driver to control Google Chrome.
+Check Chrome Version
+Open Chrome and go to:
+chrome://settings/help
+Note the installed version number.
+Download ChromeDriver
+Download the matching ChromeDriver version from: https://chromedriver.chromium.org/downloads
+After downloading:
+• Extract the file
+• Place it in a directory included in your system PATH, or inside the project folder
+Why ChromeDriver is required?
+ChromeDriver acts as a bridge between Selenium scripts and the Chrome browser.
+5.7 Step 6: Verify Installation
+Run the following command to confirm successful setup:
+python -c "import selenium, bs4, pandas; print('Environment ready')"
+If no errors appear, the environment setup is complete.
+
+6. Implementation
+
+Fig  6.1 code showing 200 status code and only 25 movies have saved to csv file using BeautifulSoup
+ 
+Fig 6.2 csv file showing only 25 saved values
+ 
+Fig 6.3 Using Selenium instead of BeautifulSoup for extracting entire 250 values 
+Fig 6.4 csv file using all 250 dataset extracted by using selenium
+ 
+Fig 6.5 Code showing csv file converting into excel file
+
+ 
+Fig 6.6 Data converted into excel sheet
+ 
+Fig 6.7 Connected Excel sheet in Tableau
+ 
+Fig 6.8 Visualizing bargraph
+ 
+Fig 6.9 Visualizing poster images and chart
+ 
+Fig 6.10 keeping rank filter and range till 5 to clearly show the movie poster
+ 
+Fig 6.11 Creating a Dashboard and displaying both visualizations 
+Fig 6.12 Showing Interaction between two charts
+
+7. Results & Insights
+The final interactive dashboard provides clear insights into the IMDb Top 250 Movies dataset. The analysis reveals that classic films dominate the highest ratings, with a significant concentration of top-ranked movies released between the 1950s and early 2000s. Movies such as The Shawshank Redemption and The Godfather consistently appear at the top, reflecting long-term audience appreciation.
+The visualization also highlights rating distribution patterns across release years, showing how older critically acclaimed films maintain high ratings despite newer releases. Poster-based views enhance user engagement by allowing intuitive exploration of movies through visual recognition. Interactive filters enable users to dynamically analyze rankings, ratings, and trends without requiring technical knowledge.
+Overall, the dashboard successfully transforms raw scraped data into meaningful, easily interpretable insights.
+
+8.  GitHub Deployment
+All project assets, including Python scripts, datasets, and documentation, are version-controlled using GitHub. The repository follows a structured layout, separating source code, data outputs, and documentation to improve readability and maintainability.
+The GitHub repository includes:
+•	Selenium-based scraping scripts
+•	Cleaned CSV and Excel datasets
+•	Project documentation
+•	Architecture and workflow references
+This deployment ensures transparency, reproducibility, and ease of collaboration, making the project suitable for code review, portfolio presentation, and future enhancements.
+
+9. Conclusion
+This project demonstrates a complete end-to-end data engineering workflow, from scraping dynamically rendered web content to delivering an interactive business intelligence dashboard. By handling JavaScript execution, lazy loading, and data validation, the solution mirrors real-world production scenarios.
+The project showcases strong technical skills in browser automation, HTML parsing, data transformation, and visualization. It also highlights the ability to design scalable pipelines, handle unstructured data sources, and communicate insights effectively through professional dashboards.
+
+10. Future Enhancements
+•	Automate periodic data refresh using schedulers such as cron or cloud-based workflows
+•	Enrich the dataset by extracting additional attributes such as genres, directors, and cast
+•	Deploy the scraping pipeline and dashboard on cloud platforms for scalability
+•	Create a Power BI version of the dashboard for cross-platform comparison
+
