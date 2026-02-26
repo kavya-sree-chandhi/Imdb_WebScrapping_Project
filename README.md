@@ -299,91 +299,79 @@ ChromeDriver acts as a bridge between Selenium scripts and the Chrome browser, e
 
 This section documents the step-by-step implementation of the project, highlighting the transition from static scraping to dynamic browser automation and the final visualization workflow. Each figure corresponds to a key stage in the data pipeline.
 
----
+<img width="431" height="263" alt="image" src="https://github.com/user-attachments/assets/fa1a5d3c-b153-41e7-8100-78506b5cfbfe" />
 
 ### Fig 6.1: Initial Scraping Using BeautifulSoup
 
 This figure shows the initial Python code execution where an HTTP 200 response is received, but only **25 movie records** are saved to the CSV file due to IMDb’s lazy loading behavior when using static BeautifulSoup scraping.
-<img width="431" height="263" alt="image" src="https://github.com/user-attachments/assets/fa1a5d3c-b153-41e7-8100-78506b5cfbfe" />
 
----
+<img width="428" height="260" alt="image" src="https://github.com/user-attachments/assets/78a26176-079d-43f5-ba6b-aedc28d4d059" />
 
 ### Fig 6.2: CSV Output with Partial Data (25 Movies)
 
 This figure displays the generated CSV file containing only 25 movie records, confirming that traditional request-based scraping failed to retrieve the complete IMDb Top 250 dataset.
-<img width="428" height="260" alt="image" src="https://github.com/user-attachments/assets/78a26176-079d-43f5-ba6b-aedc28d4d059" />
 
----
+
+<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/00841306-0957-43c1-af26-1c2bc29951ff" />
 
 ### Fig 6.3: Switching to Selenium for Full Data Extraction
 
 This figure shows the updated scraping implementation using **Selenium WebDriver**, which automates a real browser session to execute JavaScript and handle lazy loading, enabling access to the complete dataset.
-<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/00841306-0957-43c1-af26-1c2bc29951ff" />
 
----
+
+<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/f630e3f6-b3b9-486a-adeb-f9ac48875a35" />
 
 ### Fig 6.4: CSV Output with Complete Dataset (250 Movies)
 
 This figure displays the CSV file generated using Selenium, confirming that **all 250 movie records** were successfully extracted and saved.
-<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/f630e3f6-b3b9-486a-adeb-f9ac48875a35" />
 
----
+<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/907ece74-940a-44b4-a9d2-f449ad88a5cc" />
 
 ### Fig 6.5: Converting CSV File to Excel Format
 
 This figure shows the Python code used to convert the cleaned CSV file into an Excel (`.xlsx`) format to support downstream business intelligence tools.
-<img width="432" height="263" alt="image" src="https://github.com/user-attachments/assets/907ece74-940a-44b4-a9d2-f449ad88a5cc" />
 
----
+<img width="432" height="262" alt="image" src="https://github.com/user-attachments/assets/16d717f9-95f7-4d96-9e24-353afe867ab1" />
 
 ### Fig 6.6: Excel File Containing IMDb Top 250 Dataset
 
 This figure shows the converted Excel file containing the full IMDb Top 250 dataset, ready for visualization and analysis.
-<img width="432" height="262" alt="image" src="https://github.com/user-attachments/assets/16d717f9-95f7-4d96-9e24-353afe867ab1" />
 
----
+<img width="433" height="264" alt="image" src="https://github.com/user-attachments/assets/f50d2720-4bed-429b-820b-b95953b097d7" />
 
 ### Fig 6.7: Connecting Excel Dataset to Tableau
 
 This figure shows the Excel file successfully connected as a data source in **Tableau Public**, confirming that the dataset is ready for visualization.
-<img width="433" height="264" alt="image" src="https://github.com/user-attachments/assets/f50d2720-4bed-429b-820b-b95953b097d7" />
 
----
+<img width="431" height="264" alt="image" src="https://github.com/user-attachments/assets/ea07a31e-7d74-46ae-8fed-41e9ca687a09" />
 
 ### Fig 6.8: Bar Chart Visualization in Tableau
 
 This figure shows a bar graph visualizing movie rankings and IMDb ratings, enabling comparison of top-rated movies.
-<img width="431" height="264" alt="image" src="https://github.com/user-attachments/assets/ea07a31e-7d74-46ae-8fed-41e9ca687a09" />
 
----
+<img width="433" height="322" alt="image" src="https://github.com/user-attachments/assets/4dba9edd-fd3b-45ab-94fe-f869af4cb1a9" />
 
 ### Fig 6.9: Poster Image Visualization with Ratings
 
 This figure shows the poster-based visualization combined with chart data, improving user engagement through visual exploration of movies.
-<img width="433" height="322" alt="image" src="https://github.com/user-attachments/assets/4dba9edd-fd3b-45ab-94fe-f869af4cb1a9" />
 
----
+<img width="433" height="264" alt="image" src="https://github.com/user-attachments/assets/3b978260-d634-4b14-a90e-5ff225293e70" />
 
 ### Fig 6.10: Applying Rank Filter for Poster Clarity
 
 This figure shows the application of a rank range filter (1–5) to clearly display movie posters without visual clutter.
-<img width="433" height="264" alt="image" src="https://github.com/user-attachments/assets/3b978260-d634-4b14-a90e-5ff225293e70" />
 
----
+<img width="432" height="264" alt="image" src="https://github.com/user-attachments/assets/06995721-59d1-493d-8690-50f73a4a09f7" />
 
 ### Fig 6.11: Dashboard Creation with Multiple Visualizations
 
 This figure shows the final Tableau dashboard combining both the bar chart and poster visualization into a single analytical view.
-<img width="432" height="264" alt="image" src="https://github.com/user-attachments/assets/06995721-59d1-493d-8690-50f73a4a09f7" />
 
----
+![Uploading image.png…]()
 
 ### Fig 6.12: Interactive Dashboard Behavior
 
 This figure demonstrates the interaction between charts, where selecting a movie in one visualization dynamically filters and updates the other.
-![Uploading image.png…]()
-
----
 
 ## 7. Results & Insights
 
