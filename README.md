@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 Index
+## 📑 Index :
 
 1. Introduction  
 2. Project Motivation & Problem Statement  
@@ -22,7 +22,7 @@
 10. Future Enhancements  
 
 ---
-## 1. Introduction
+## 1. Introduction :
 
 In today’s data-driven world, valuable information is often embedded within modern web applications rather than exposed through structured APIs. Many popular websites dynamically load data using JavaScript, making traditional data extraction techniques insufficient. This project addresses that real-world challenge by designing and implementing an end-to-end data pipeline that automates the extraction, processing, and visualization of web-based data.
 
@@ -36,7 +36,7 @@ Overall, this project showcases a real-world data engineering workflow, covering
 
 ---
 
-## 2. Project Motivation & Problem Statement
+## 2. Project Motivation & Problem Statement :
 
 Modern web applications increasingly rely on client-side rendering techniques, where content is dynamically loaded in the browser using JavaScript rather than being delivered as complete HTML from the server. While this approach improves user experience, it introduces significant challenges for data extraction and automation. Traditional web scraping methods based on HTTP requests and static HTML parsing are often insufficient when dealing with such dynamically rendered content.
 
@@ -44,7 +44,7 @@ The IMDb Top 250 Movies page is a clear example of this challenge. Although the 
 
 The primary motivation for this project was to design a reliable and scalable scraping solution capable of extracting the complete Top 250 dataset despite these technical limitations. The problem required not only identifying the presence of lazy loading but also implementing a method to simulate real user behavior in order to trigger full data loading. Additionally, the extracted data contained mixed formats (such as ratings combined with vote counts), necessitating careful data cleaning and transformation before analysis.
 
-### Core Problems Addressed
+### Core Problems Addressed :
 
 - Traditional scraping approaches fail to retrieve complete data from JavaScript-rendered pages  
 - IMDb’s lazy loading mechanism restricts access to all 250 movie records in a single request  
@@ -54,43 +54,43 @@ This project was motivated by the need to solve these challenges in a production
 
 ---
 
-## 3. Project Objectives
+## 3. Project Objectives :
 
 The key objectives of the project are outlined below.
 
-### 3.1 Reliable Data Extraction
+### 3.1 Reliable Data Extraction :
 
 To develop a dependable web scraping solution capable of extracting the complete IMDb Top 250 Movies dataset without data loss. This includes accurately capturing all movie records despite the presence of JavaScript-based content rendering and incremental data loading.
 
-### 3.2 Handling Lazy Loading and Dynamic Content
+### 3.2 Handling Lazy Loading and Dynamic Content :
 
 To identify and effectively handle lazy loading mechanisms implemented on the IMDb website. This objective focuses on simulating real user interactions, such as scrolling behavior, to trigger full content loading and ensure that all movie entries are available for extraction.
 
-### 3.3 Data Cleaning and Transformation
+### 3.3 Data Cleaning and Transformation :
 
 To clean and normalize raw scraped data, which often contains mixed formats and extraneous text. This includes separating numeric IMDb ratings from vote counts, standardizing data types, and ensuring consistency across all extracted fields to support accurate analysis.
 
-### 3.4 Storage in Analysis-Ready Formats
+### 3.4 Storage in Analysis-Ready Formats :
 
 To store the processed dataset in structured, widely supported formats such as CSV and Excel, making the data easily consumable by business intelligence tools, analytical workflows, and downstream applications.
 
-### 3.5 Interactive Data Visualization
+### 3.5 Interactive Data Visualization :
 
 To design and build interactive dashboards that allow users to explore movie rankings, rating trends, and detailed attributes visually. This objective emphasizes clarity, usability, and meaningful storytelling through charts, filters, and image-based visual components.
 
-### 3.6 Comprehensive Documentation and Reproducibility
+### 3.6 Comprehensive Documentation and Reproducibility :
 
 To document the entire workflow in a clear and structured manner, including setup instructions, design decisions, challenges encountered, and solutions implemented. This ensures the project is reproducible, maintainable, and suitable for knowledge sharing, code reviews, and portfolio presentation.
 
 ---
-## 4. System Architecture
+## 4. System Architecture :
 <img width="553" height="267" alt="image" src="https://github.com/user-attachments/assets/952591b1-7776-4226-a4df-dd3d3d331ceb" />
 
 The system architecture follows a **layered, end-to-end data pipeline** designed to reliably extract, process, and visualize data from a modern, JavaScript-driven website. Each component in the architecture has a clearly defined responsibility, ensuring **separation of concerns**, **maintainability**, and **robustness** across the entire workflow.
 
 The architecture is intentionally modular, allowing each layer to operate independently while seamlessly integrating with adjacent stages. This design mirrors real-world data engineering pipelines used in production environments.
 
-### 4.1 Data Source Layer – IMDb Website
+### 4.1 Data Source Layer – IMDb Website :
 
 The IMDb Top 250 Movies page serves as the primary data source. This webpage dynamically loads movie data using JavaScript and lazy loading techniques, meaning the complete dataset is not available in the initial HTML response.
 
